@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Cordova</title>
+<script type="text/javascript" charset="utf-8" src="cordova.js">
+</script>
+</head>
+<body>
+    <button id="btnCamara" onclick="llamarCamara()" disabled>
+	Llamar a la cámara</button>
+	<br />
+	<img style="display: none; width: 100px; height: 100px;"
+	id="laFoto" src="" />
+</body>
+</html>
+<script type="text/javascript" charset="utf-8">
+      document.addEventListener("deviceready", habilitarBoton, false);
+	
+	  function habilitarBoton() {
+	    var boton = document.getElementById('btnCamara');
+	    boton.disabled = false;
+	  }
+	  function foto(imageData) {
+		var laImagen = document.getElementById('laFoto');
+		laImagen.style.display = 'block';
+		laImagen.src = "data:image/jpeg;base64," + imageData;
+	  }
+	  function llamarCamara() {
+		navigator.camera.getPicture(foto, error, { quality: 50,
+		destinationType: Camera.DestinationType.DATA_URL });
+	  }
+	  function error(message) {
+		alert('Ha fallado porque: ' + message);
+	  }
+</script>
